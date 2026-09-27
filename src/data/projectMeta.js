@@ -1,14 +1,15 @@
 import smkn2Img from '../assets/smkn2.png';
 import sejarahImg from '../assets/Sejarah.png';
+import restaurantImg from '../assets/restaurant.png';
 
 export const PROJECT_META = [
   {
     id: 1,
-    slug: "diabetes-classification",
-    title: "Diabetes Classification",
-    category: "AI / Machine Learning",
+    slug: "luxury-restaurant",
+    title: "Premium Restaurant Website",
+    category: "Web Application",
     color: "bg-neutral-400",
-    img: "https://res.cloudinary.com/demlxsf08/image/upload/v1766486193/projek1_gj8ahb.png",
+    img: restaurantImg,
   },
   {
     id: 2,
