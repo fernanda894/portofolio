@@ -1,6 +1,6 @@
 import { memo, useEffect, useRef } from 'react';
 import { Gsap } from '../utils/gsapAnimate';
-import { Github, Linkedin, Mail, ArrowUpRight } from 'lucide-react';
+import { Github, Instagram, Mail, ArrowUpRight } from 'lucide-react';
 import { exponentialEaseOut } from '../utils/easing';
 
 const DiscordIcon = ({ className = '', size = 16 }) => (
@@ -126,7 +126,7 @@ const Footer = memo(function Footer() {
               {[
                 { label: 'Email', href: 'https://mail.google.com/mail/?view=cm&fs=1&to=zdanzxy622@gmail.com', icon: Mail },
                 { label: 'GitHub', href: 'https://github.com/fernanda894/projekcv.git', icon: Github },
-                { label: 'LinkedIn', href: 'https://www.linkedin.com/in/ernandalinktres/', icon: Linkedin },
+                { label: 'Instagram', href: 'https://www.instagram.com/danxzzyy_/', icon: Instagram },
               ].map((link) => (
                 <a
                   key={link.label}
