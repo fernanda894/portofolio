@@ -14,7 +14,7 @@ const galleryImages = [
     { src: '/hackathon-base/base-realms-5.webp', alt: 'Just 5 Steps to Play' },
     { src: '/hackathon-base/base-realms-6.webp', alt: 'Trade Collectibles & Mint NFTs' },
     { src: '/hackathon-base/base-realms-4.webp', alt: 'System Architecture & Flow' },
-    { src: '/hackathon-base/base-realms-1.webp', alt: 'Team Information & Project Roadmap' },
+    { src: '/hackathon-base/base-realms-1.png', alt: 'Team Information & Project Roadmap' },
 ];
 
 const techStack = ['Solidity', 'Next.js', 'TypeScript', 'JavaScript', 'CSS'];
