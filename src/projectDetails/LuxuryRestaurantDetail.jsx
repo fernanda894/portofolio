@@ -2,7 +2,7 @@ import ProjectCaseLayout from "../components/projects/ProjectCaseLayout";
 import restaurantImg from "../assets/restaurant.png";
 
 export const project = {
-  title: "Premium Restaurant Website",
+  title: "Premium Cocktail Website",
   category: "Web Application",
   heroImg: restaurantImg,
   tagline:
@@ -28,8 +28,8 @@ export const project = {
     "Provides a lightning-fast, accessible, and intuitive user interface.",
   ],
   links: {
-    live: "#",
-    repo: "#",
+    live: "https://cocktail-website-rho.vercel.app/",
+    repo: "https://github.com/fernanda894/cocktail-website",
   },
 };
 

@@ -6,7 +6,7 @@ export const PROJECT_META = [
   {
     id: 1,
     slug: "luxury-restaurant",
-    title: "Premium Restaurant Website",
+    title: "Premium Cocktail Website",
     category: "Web Application",
     color: "bg-neutral-400",
     img: restaurantImg,
