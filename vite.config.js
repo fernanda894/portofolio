@@ -5,7 +5,6 @@ export default defineConfig({
   plugins: [react()],
   envPrefix: ['VITE_', 'REACT_APP_'],
   build: {
-    outDir: 'build',
     sourcemap: false,
   },
 });
