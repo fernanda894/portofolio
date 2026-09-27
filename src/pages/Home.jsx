@@ -88,7 +88,7 @@ export default function Home() {
       <Suspense fallback={null}><MarqueeBanner /></Suspense>
       <Suspense fallback={null}><AboutSection /></Suspense>
 
-      <div id="project-section" ref={galleryRef} className="bg-neutral-900">
+      <div id="project-section" ref={galleryRef} className="bg-neutral-900 relative z-20">
         <Suspense fallback={<div className="h-screen bg-neutral-900" />}>
           <ProjectGallery onOpenProject={handleOpenProject} />
         </Suspense>
