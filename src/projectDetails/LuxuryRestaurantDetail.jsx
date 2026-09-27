@@ -6,7 +6,7 @@ export const project = {
   category: "Web Application",
   heroImg: restaurantImg,
   tagline:
-    "A visually striking and highly interactive website for a premium restaurant. Features include elegant animations, dark mode aesthetics, and an intuitive reservation system.",
+    "A visually striking and highly interactive website for a premium cocktail bar. Features include elegant GSAP animations, sophisticated dark mode aesthetics, and a dynamic drink menu.",
   year: "2026",
   stack: [
     "React",
@@ -17,15 +17,15 @@ export const project = {
   ],
   features: [
     "High-end UI/UX design with a sophisticated dark theme and beautiful typography.",
-    "Smooth scroll animations and page transitions powered by GSAP and Framer Motion.",
+    "Smooth scroll animations and seamless page transitions powered by GSAP and Framer Motion.",
     "Responsive layout ensuring a flawless experience on desktop, tablet, and mobile devices.",
-    "Dynamic menu presentation with appetizing imagery and detailed descriptions.",
-    "Integrated reservation form for seamless table bookings.",
+    "Dynamic cocktail menu presentation with premium imagery and detailed drink compositions.",
+    "Interactive elements that enhance user engagement and showcase the art of mixology.",
   ],
   impact: [
-    "Elevates the restaurant's digital presence to match its premium physical dining experience.",
-    "Increases customer engagement and conversion rates for online reservations.",
-    "Provides a lightning-fast, accessible, and intuitive user interface.",
+    "Elevates the brand's digital presence to match its premium physical cocktail lounge experience.",
+    "Captivates visitors with immersive animations, increasing time spent on the website.",
+    "Provides a lightning-fast, accessible, and highly intuitive user interface.",
   ],
   links: {
     live: "https://cocktail-website-rho.vercel.app/",
