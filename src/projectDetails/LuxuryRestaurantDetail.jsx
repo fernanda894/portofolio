@@ -1,5 +1,5 @@
 import ProjectCaseLayout from "../components/projects/ProjectCaseLayout";
-import restaurantImg from "../assets/restaurant.png";
+import restaurantImg from "../assets/foto 2.png";
 
 export const project = {
   title: "Premium Cocktail Website",

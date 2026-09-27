@@ -1,6 +1,6 @@
 import smkn2Img from '../assets/smkn2.png';
 import sejarahImg from '../assets/Sejarah.png';
-import restaurantImg from '../assets/restaurant.png';
+import restaurantImg from '../assets/foto1.png';
 
 export const PROJECT_META = [
   {
