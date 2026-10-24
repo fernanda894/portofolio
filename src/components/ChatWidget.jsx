@@ -9,6 +9,7 @@ import { PROJECT_META } from "../data/projectMeta";
 import { PORTFOLIO_DATA } from "../data/portfolioData";
 import { PROJECT_DETAILS_DATA } from "../data/projectDetailsData";
 import { exponentialEaseOut } from "../utils/easing";
+import { checkRateLimit, recordRequest, getQuotaInfo } from "../services/rateLimiter";
 
 const ReactMarkdown = lazy(() => import('react-markdown'));
 
@@ -181,6 +182,7 @@ const ChatWidget = ({ isOpen: controlledIsOpen, onOpenChange }) => {
     const [isTyping, setIsTyping] = useState(false);
     const [isStreaming, setIsStreaming] = useState(false);
     const [copiedIdx, setCopiedIdx] = useState(null);
+    const [quota, setQuota] = useState(() => getQuotaInfo());
 
     // Command history
     const [commandHistory, setCommandHistory] = useState([]);
@@ -217,9 +219,10 @@ const ChatWidget = ({ isOpen: controlledIsOpen, onOpenChange }) => {
         };
     }, [messages, isTyping, isStreaming, forceScrollToBottom]);
 
-    // ─── Focus input when terminal opens ─────────────────────────
+    // ─── Focus input & refresh quota when terminal opens ────────
     useEffect(() => {
         if (isOpen) {
+            setQuota(getQuotaInfo());
             setTimeout(() => inputRef.current?.focus(), 100);
         }
     }, [isOpen]);
@@ -381,8 +384,27 @@ const ChatWidget = ({ isOpen: controlledIsOpen, onOpenChange }) => {
         // Step 2: Resolve navigation action from user intent (deterministic, no LLM)
         const { action, params } = resolveAction(userMsg);
 
+        // Step 2b: Check Rate Limit (protect API tokens)
+        const limitCheck = checkRateLimit();
+        if (!limitCheck.allowed) {
+            const isEn = lang === 'en';
+            const limitMsg = isEn
+                ? `⏳ **Chat quota reached** (max ${limitCheck.total} messages per 2 hours).\nPlease wait **${limitCheck.timeStr}** before chatting again.\n\n💡 *Tip: Offline terminal commands like \`help\`, \`ls\`, \`cat <slug>\`, and \`neofetch\` are always available!*`
+                : `⏳ **Batas kuota obrolan tercapai** (maksimal ${limitCheck.total} pesan per 2 jam).\nSilakan tunggu **${limitCheck.timeStr}** lagi untuk bertanya kembali agar kuota AI tetap terjaga.\n\n💡 *Tips: Perintah terminal offline seperti \`help\`, \`ls\`, \`cat <slug>\`, dan \`neofetch\` tetap bisa digunakan tanpa kuota!*`;
+
+            setMessages(prev => [...prev, { type: 'bot', text: limitMsg }]);
+            setQuota(getQuotaInfo());
+
+            if (action) {
+                executeAction(action, params);
+            }
+            return;
+        }
+
         // Step 3: Call LLM for a natural language response
         setIsTyping(true);
+        recordRequest();
+        setQuota(getQuotaInfo());
 
         try {
             // Build conversation context - limit to last 6 non-terminal messages
@@ -482,6 +504,12 @@ const ChatWidget = ({ isOpen: controlledIsOpen, onOpenChange }) => {
                                 <div className="w-3 h-3 rounded-full bg-neutral-500/80"></div>
                             </div>
                             <span className="ml-2 text-neutral-400 text-xs">Rosemerry - -bash</span>
+                            <span
+                                className={`text-[10px] px-1.5 py-0.5 rounded border select-none ${quota.remaining > 2 ? 'text-neutral-500 border-neutral-800 bg-neutral-900/60' : quota.remaining > 0 ? 'text-yellow-500 border-yellow-800/40 bg-yellow-950/20' : 'text-red-400 border-red-800/40 bg-red-950/20'}`}
+                                title={`Sisa kuota AI: ${quota.remaining}/${quota.total} pesan (reset tiap 2 jam)`}
+                            >
+                                {quota.remaining}/{quota.total}
+                            </span>
                         </div>
                         <div className="flex items-center gap-2">
                             <span className="text-neutral-600 text-[10px] hidden md:inline">Ctrl+K</span>
