@@ -48,19 +48,18 @@ npm install
 Buat file `.env` di root project, lalu isi salah satu variabel berikut:
 
 ```env
-VITE_CEREBRAS_API_KEY=your_key_here
-```
+# Google Gemini (Rekomendasi)
+VITE_GEMINI_API_KEY=your_gemini_key_here
 
-Kalau kamu masih memakai format lama, repo ini juga tetap membaca:
-
-```env
-REACT_APP_CEREBRAS_API_KEY=your_key_here
+# Atau Cerebras
+VITE_CEREBRAS_API_KEY=your_cerebras_key_here
 ```
 
 Catatan:
 
-- Kalau tidak ada API key, command lokal tetap jalan normal.
-- AI response hanya aktif kalau salah satu key di atas tersedia.
+- Jika `VITE_GEMINI_API_KEY` diisi, chatbot otomatis menggunakan model Google Gemini.
+- Kalau tidak ada API key, command lokal terminal tetap jalan normal.
+- AI chat responsif aktif kalau salah satu key di atas tersedia.
 
 ### 4. Jalankan development server
 
