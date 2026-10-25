@@ -5,34 +5,31 @@ const Preloader = ({ onComplete }) => {
     const [isExiting, setIsExiting] = useState(false);
 
     useEffect(() => {
-        const timer = setInterval(() => {
-            setProgress((prev) => {
-                if (prev >= 100) {
-                    clearInterval(timer);
-                    return 100;
-                }
-                const diff = 20 + Math.random() * 25;
-                return Math.min(prev + diff, 100);
-            });
-        }, 25);
+        let frameId;
+        const startTime = performance.now();
+        const duration = 240;
 
-        return () => clearInterval(timer);
-    }, []);
+        const tick = (now) => {
+            const elapsed = now - startTime;
+            const p = Math.min(Math.round((elapsed / duration) * 100), 100);
+            setProgress(p);
 
-    useEffect(() => {
-        if (progress === 100) {
-            const holdTimer = setTimeout(() => {
+            if (p < 100) {
+                frameId = requestAnimationFrame(tick);
+            } else {
                 setIsExiting(true);
-                const exitTimer = setTimeout(onComplete, 450);
-                return () => clearTimeout(exitTimer);
-            }, 60);
-            return () => clearTimeout(holdTimer);
-        }
-    }, [progress, onComplete]);
+                const timer = setTimeout(onComplete, 350);
+                return () => clearTimeout(timer);
+            }
+        };
+
+        frameId = requestAnimationFrame(tick);
+        return () => cancelAnimationFrame(frameId);
+    }, [onComplete]);
 
     return (
         <div
-            className={`fixed inset-0 z-[9999] bg-[#111] text-white flex flex-col justify-center items-center overflow-hidden transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] ${isExiting ? '-translate-y-full' : 'translate-y-0'}`}
+            className={`fixed inset-0 z-[9999] bg-[#111] text-white flex flex-col justify-center items-center overflow-hidden transition-transform duration-[350ms] ease-[cubic-bezier(0.76,0,0.24,1)] ${isExiting ? '-translate-y-full' : 'translate-y-0'}`}
         >
             <div className="flex flex-col items-center">
                 <div className="overflow-hidden">

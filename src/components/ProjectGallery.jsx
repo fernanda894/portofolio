@@ -343,7 +343,7 @@ export default function ProjectGallery({ onOpenProject }) {
                     draggable="false"
                     src={cloudinarySrc(project.img, 800)}
                     alt={project.title}
-                    loading={index === 0 ? "eager" : "lazy"}
+                    loading="lazy"
                     decoding="async"
                     className="h-full w-full object-cover opacity-70 grayscale-[30%]"
                     style={{ imageRendering: "auto" }}
@@ -463,7 +463,7 @@ export default function ProjectGallery({ onOpenProject }) {
                     ].join(', ')}
                     sizes="45vw"
                     alt={project.title}
-                    loading={index === 0 ? "eager" : "lazy"}
+                    loading="lazy"
                     decoding="async"
                     className="h-full w-full object-cover transition-transform duration-1000 group-hover:scale-105 opacity-80 group-hover:opacity-100 grayscale-[50%] group-hover:grayscale-0 will-change-transform"
                     style={{ imageRendering: "auto" }}

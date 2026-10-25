@@ -29,6 +29,7 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
   const [isScrollLocked, setIsScrollLocked] = useState(true);
   const [enableNoiseOverlay, setEnableNoiseOverlay] = useState(false);
+  const [enableCursor, setEnableCursor] = useState(false);
 
   // Initialize Lenis with scroll lock state
   useLenis(isScrollLocked);
@@ -40,10 +41,9 @@ export default function Home() {
       const isFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
       const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       setEnableNoiseOverlay(isFinePointer && !reduceMotion);
+      setEnableCursor(isFinePointer);
     }
   }, []);
-
-  // Profile image preloaded as hero.webp is already handled via <link rel=preload> in index.html
 
   // Manage body overflow based on scroll lock
   useEffect(() => {
@@ -64,7 +64,7 @@ export default function Home() {
   }, [navigate, location]);
 
   return (
-    <div className="bg-[#FAF9F6] text-black selection:bg-neutral-400 selection:text-black relative">
+    <main id="main-content" className="bg-[#FAF9F6] text-black selection:bg-neutral-400 selection:text-black relative">
       {isLoading && (
         <Preloader
           onComplete={() => {
@@ -75,25 +75,32 @@ export default function Home() {
       )}
 
       {enableNoiseOverlay && <Suspense fallback={null}><NoiseOverlay /></Suspense>}
-      <Suspense fallback={null}><ChatLauncher /></Suspense>
-
-      <Suspense fallback={null}><Cursor /></Suspense>
+      {enableCursor && <Suspense fallback={null}><Cursor /></Suspense>}
+      
+      {/* Above-the-fold critical viewport */}
       <Navbar />
       <HeroSection isRevealed={true} />
-      <Suspense fallback={null}><MarqueeBanner /></Suspense>
-      <Suspense fallback={null}><AboutSection /></Suspense>
 
-      <div id="project-section" ref={galleryRef} className="bg-neutral-900 relative z-20">
-        <Suspense fallback={<div className="h-screen bg-neutral-900" />}>
-          <ProjectGallery onOpenProject={handleOpenProject} />
-        </Suspense>
-      </div>
+      {/* Below-the-fold deferred content - loaded after preloader to ensure instant LCP */}
+      {!isLoading && (
+        <>
+          <Suspense fallback={null}><ChatLauncher /></Suspense>
+          <Suspense fallback={null}><MarqueeBanner /></Suspense>
+          <Suspense fallback={null}><AboutSection /></Suspense>
 
-      <Suspense fallback={null}><ProfessionalExperience /></Suspense>
-      <Suspense fallback={null}><TechStack /></Suspense>
-      <Suspense fallback={null}><GitHubStats /></Suspense>
-      <Suspense fallback={null}><TechnicalCapabilities /></Suspense>
-      <Suspense fallback={null}><Footer /></Suspense>
-    </div>
+          <div id="project-section" ref={galleryRef} className="bg-neutral-900 relative z-20">
+            <Suspense fallback={<div className="h-screen bg-neutral-900" />}>
+              <ProjectGallery onOpenProject={handleOpenProject} />
+            </Suspense>
+          </div>
+
+          <Suspense fallback={null}><ProfessionalExperience /></Suspense>
+          <Suspense fallback={null}><TechStack /></Suspense>
+          <Suspense fallback={null}><GitHubStats /></Suspense>
+          <Suspense fallback={null}><TechnicalCapabilities /></Suspense>
+          <Suspense fallback={null}><Footer /></Suspense>
+        </>
+      )}
+    </main>
   );
 }
