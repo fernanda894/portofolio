@@ -1,5 +1,5 @@
 import ProjectCaseLayout from "../components/projects/ProjectCaseLayout";
-import heroImage from "../assets/smkn2.png";
+import heroImage from "../assets/smkn2.webp";
 
 export const project = {
   title: "SMK Negeri 2 Karanganyar",

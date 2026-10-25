@@ -1,12 +1,13 @@
 import { useEffect, useState, useRef, lazy, Suspense, useCallback } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Preloader from '../components/Preloader';
-import Cursor from '../components/Cursor';
 import Navbar from '../components/Navbar';
 import HeroSection from '../components/HeroSection';
-import ChatLauncher from '../components/ChatLauncher';
 import useLenis from '../hooks/useLenis';
 import useScrollToGallery from '../hooks/useScrollToGallery';
+
+const Cursor = lazy(() => import('../components/Cursor'));
+const ChatLauncher = lazy(() => import('../components/ChatLauncher'));
 
 const MarqueeBanner = lazy(() => import('../components/MarqueeBanner'));
 const AboutSection = lazy(() => import('../components/AboutSection'));
@@ -42,11 +43,7 @@ export default function Home() {
     }
   }, []);
 
-  // Preload profile image (optimized WebP with JPEG fallback)
-  useEffect(() => {
-    const profileImg = new Image();
-    profileImg.src = "/profile.webp";
-  }, []);
+  // Profile image preloaded as hero.webp is already handled via <link rel=preload> in index.html
 
   // Manage body overflow based on scroll lock
   useEffect(() => {
@@ -78,11 +75,9 @@ export default function Home() {
       )}
 
       {enableNoiseOverlay && <Suspense fallback={null}><NoiseOverlay /></Suspense>}
-      <ChatLauncher />
+      <Suspense fallback={null}><ChatLauncher /></Suspense>
 
-
-
-      <Cursor />
+      <Suspense fallback={null}><Cursor /></Suspense>
       <Navbar />
       <HeroSection isRevealed={true} />
       <Suspense fallback={null}><MarqueeBanner /></Suspense>

@@ -67,15 +67,22 @@ const HeroSection = memo(function HeroSection({ isRevealed = true }) {
         transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
         className="relative z-20 w-[90vw] max-w-[500px] lg:max-w-[700px] mt-auto bottom-0 flex justify-center items-end"
       >
-        <div className="w-full relative flex items-end justify-center group pointer-events-none">
-          <img 
-            src="/hero.png" 
-            alt="Fernanda Pratama" 
-            className="w-full h-auto object-contain object-bottom transition-transform duration-700 group-hover:scale-105 drop-shadow-[0_20px_50px_rgba(0,0,0,0.3)]"
-            onError={(e) => {
-              e.target.style.opacity = '0';
-            }}
-          />
+      <div className="w-full relative flex items-end justify-center group pointer-events-none">
+          <picture>
+            <source srcSet="/hero.webp" type="image/webp" />
+            <img
+              src="/hero.png"
+              alt="Fernanda Pratama"
+              width="700"
+              height="700"
+              fetchPriority="high"
+              decoding="async"
+              className="w-full h-auto object-contain object-bottom transition-transform duration-700 group-hover:scale-105 drop-shadow-[0_20px_50px_rgba(0,0,0,0.3)]"
+              onError={(e) => {
+                e.target.style.opacity = '0';
+              }}
+            />
+          </picture>
         </div>
       </Gsap.div>
 

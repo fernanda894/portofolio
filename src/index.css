@@ -268,6 +268,11 @@ html.lenis body {
 /* content-visibility removed: it breaks GSAP ScrollTrigger position
    calculations, causing scroll jumps when entering/leaving pinned sections. */
 
+/* Safe CSS containment for below-fold sections that don't use ScrollTrigger pinning */
+#about-section {
+  contain: layout style;
+}
+
 /* Reduce motion for users who prefer it - respects OS accessibility settings */
 @media (prefers-reduced-motion: reduce) {
 

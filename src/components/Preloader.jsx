@@ -6,16 +6,17 @@ const Preloader = ({ onComplete }) => {
     const [isExiting, setIsExiting] = useState(false);
 
     useEffect(() => {
-        const timer = setInterval(() => {
+    const timer = setInterval(() => {
             setProgress((prev) => {
                 if (prev >= 100) {
                     clearInterval(timer);
                     return 100;
                 }
-                const diff = Math.random() * 12;
+                // Faster increment: min 10, random up to 20 per tick
+                const diff = 10 + Math.random() * 20;
                 return Math.min(prev + diff, 100);
             });
-        }, 100);
+        }, 60); // 60ms interval instead of 100ms
 
         return () => clearInterval(timer);
     }, []);
@@ -24,8 +25,8 @@ const Preloader = ({ onComplete }) => {
         if (progress === 100) {
             setTimeout(() => {
                 setIsExiting(true);
-                setTimeout(onComplete, 800);
-            }, 800);
+                setTimeout(onComplete, 500); // 500ms exit instead of 800ms
+            }, 400); // 400ms hold instead of 800ms
         }
     }, [progress, onComplete]);
 
