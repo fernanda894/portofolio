@@ -26,6 +26,11 @@ const useLenis = (disabled) => {
             return;
         }
 
+        // Defer heavy imports (Lenis, GSAP, ScrollTrigger) until preloader finishes
+        if (disabled && !window.lenisInstance) {
+            return;
+        }
+
         const initializeLenis = async () => {
             const [{ default: Lenis }, gsapModule, { ScrollTrigger }] = await Promise.all([
                 import('lenis'),
@@ -102,7 +107,7 @@ const useLenis = (disabled) => {
             cancelled = true;
             if (cleanup) cleanup();
         };
-    }, []);
+    }, [disabled]);
 
     useEffect(() => {
         if (!lenisRef.current) return;

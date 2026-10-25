@@ -1,7 +1,8 @@
-import { useLayoutEffect } from "react";
+import { useLayoutEffect, lazy, Suspense } from "react";
 import { Routes, Route, useLocation, useNavigationType } from "react-router-dom";
 import Home from "./pages/Home";
-import ProjectDetailModal from "./components/projects/ProjectDetailModal";
+
+const ProjectDetailModal = lazy(() => import("./components/projects/ProjectDetailModal"));
 // Component untuk scroll ke atas setiap kali route berubah
 function ScrollToTop() {
   const location = useLocation();
@@ -103,9 +104,11 @@ export default function App() {
       </Routes>
 
       {backgroundLocation && (
-        <Routes>
-          <Route path="/projects/:slug" element={<ProjectDetailModal />} />
-        </Routes>
+        <Suspense fallback={null}>
+          <Routes>
+            <Route path="/projects/:slug" element={<ProjectDetailModal />} />
+          </Routes>
+        </Suspense>
       )}
     </>
   );
