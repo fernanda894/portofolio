@@ -197,26 +197,7 @@ export default function ProjectGallery({ onOpenProject }) {
       return;
     }
 
-    const lenis = window.lenisInstance;
-
-    let usingLenis = false;
-    if (lenis && typeof lenis.scrollTo === "function") {
-      usingLenis = true;
-
-      ScrollTrigger.scrollerProxy(document.documentElement, {
-        scrollTop(value) {
-          if (arguments.length) lenis.scrollTo(value, { immediate: true });
-          return lenis.scroll;
-        },
-        getBoundingClientRect() {
-          return { top: 0, left: 0, width: window.innerWidth, height: window.innerHeight };
-        },
-      });
-
-      ScrollTrigger.defaults({ scroller: document.documentElement });
-    } else {
-      ScrollTrigger.defaults({ scroller: window });
-    }
+    ScrollTrigger.defaults({ scroller: window });
 
     const ctx = gsap.context(() => {
       const setX = gsap.quickSetter(track, "x", "px");
@@ -226,8 +207,8 @@ export default function ProjectGallery({ onOpenProject }) {
         start: "top top",
         end: () => `+=${maxScroll}`,
         pin: true,
-        scrub: true,
-        anticipatePin: 0.5,
+        scrub: 1,
+        anticipatePin: 0,
         fastScrollEnd: false,
         invalidateOnRefresh: true,
         onUpdate: (self) => {
@@ -262,10 +243,6 @@ export default function ProjectGallery({ onOpenProject }) {
 
     return () => {
       ctx.revert();
-      if (usingLenis) {
-        ScrollTrigger.scrollerProxy(document.documentElement, null);
-        ScrollTrigger.defaults({ scroller: window });
-      }
     };
   }, [enablePinnedScroll, maxScroll, projectCount]);
 
