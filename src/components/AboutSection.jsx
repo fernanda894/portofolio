@@ -124,7 +124,7 @@ const AboutSection = memo(function AboutSection() {
   const [showHackathonDetail, setShowHackathonDetail] = useState(false);
 
   return (
-    <section id="about-section" className="py-20 md:py-28 w-full relative bg-[#FAF9F6] overflow-hidden">
+    <section id="about-section" className="py-20 md:py-28 w-full relative bg-[#FAF9F6] overflow-hidden scroll-mt-24">
 
       {/* Ambient background glows */}
       <div className="absolute inset-0 pointer-events-none select-none">

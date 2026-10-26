@@ -156,7 +156,7 @@ const GitHubStats = memo(function GitHubStats() {
     }, []);
 
     return (
-        <section id="github-stats-section" className="pt-20 md:pt-24 pb-24 md:pb-32 w-full relative bg-[#0A0A0A] overflow-hidden">
+        <section id="github-stats-section" className="pt-20 md:pt-24 pb-24 md:pb-32 w-full relative bg-[#0A0A0A] overflow-hidden scroll-mt-24">
             <div className="max-w-[1400px] mx-auto px-6 md:px-12 relative z-10">
 
                 {/* ── SECTION HEADER ── */}

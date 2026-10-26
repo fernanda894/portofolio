@@ -182,7 +182,7 @@ const ProfessionalExperience = () => {
   }, []);
 
   return (
-    <section id="experience-section" className="pt-20 md:pt-24 pb-24 md:pb-32 w-full relative bg-[#FAF9F6] overflow-hidden overflow-x-clip">
+    <section id="experience-section" className="pt-20 md:pt-24 pb-24 md:pb-32 w-full relative bg-[#FAF9F6] overflow-hidden overflow-x-clip scroll-mt-24">
       <div className="absolute inset-0 pointer-events-none select-none">
         <div className="absolute right-0 top-20 w-[460px] h-[460px] bg-black/[0.025] rounded-full blur-[100px]" />
       </div>

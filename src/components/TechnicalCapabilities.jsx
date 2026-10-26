@@ -37,7 +37,7 @@ const TechnicalCapabilities = memo(function TechnicalCapabilities() {
   }, [isInView]);
 
   return (
-    <section id="capabilities-section" className="pt-24 pb-32 w-full relative bg-[#FAF9F6] overflow-hidden">
+    <section id="capabilities-section" className="pt-24 pb-32 w-full relative bg-[#FAF9F6] overflow-hidden scroll-mt-24">
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 relative z-10">
 
         {/* ── SECTION HEADER ── */}
